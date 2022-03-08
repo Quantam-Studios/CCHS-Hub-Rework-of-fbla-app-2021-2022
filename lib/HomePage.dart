@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sizer/sizer.dart';
+import 'main.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
           ),
           // LUNCH FOR THE DAY
           _lunchForTheDay(),
-          // TODO LIST FOR THE DAY
+          // TO-DO LIST FOR THE DAY
           _todoListForTheDay(),
         ],
       ),
@@ -30,30 +30,51 @@ class HomePage extends StatelessWidget {
 _topSection() {
   return Container(
     color: Colors.blue,
-    padding: EdgeInsets.all(10.0),
+    padding: const EdgeInsets.all(10.0),
     height: 200,
-    child: Center(
-      child: Text(
-        "Current Class",
-        style: TextStyle(
-          fontSize: 35,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _optionsMenuButton(),
+        const Center(
+          child: Text(
+            "Current Class",
+            style: TextStyle(
+              fontSize: 35,
+            ),
+          ),
         ),
-      ),
+      ],
     ),
   );
 }
+
+// OPTIONS MENU BUTTON
+_optionsMenuButton() {
+  return IconButton(
+    onPressed: () => {},
+    icon: Icon(
+      Icons.settings_applications_sharp,
+      color: Colors.white,
+      size: 35,
+    ),
+  );
+}
+
+// OPTIONS MENU
+_optionsMenu() {}
 
 // CURRENT CLASS INFORMATION CONTAINER
 // this contains, and styles the container showing the current class, time, and room
 _currentClassInfo() {
   return Container(
-    margin: EdgeInsets.symmetric(
+    margin: const EdgeInsets.symmetric(
       vertical: 10.0,
       horizontal: 25.0,
     ),
-    padding: EdgeInsets.all(10.0),
+    padding: const EdgeInsets.all(10.0),
     decoration: BoxDecoration(
-      color: Color(0xFF333333),
+      color: const Color(0xFF333333),
       borderRadius: BorderRadius.circular(15.0),
     ),
     child: Center(
@@ -61,22 +82,44 @@ _currentClassInfo() {
         children: [
           Row(
             children: [
-              Spacer(),
-              Text(
-                '7:30-8:20',
-                style: TextStyle(fontSize: 16),
+              const Spacer(),
+              Column(
+                children: const [
+                  Icon(
+                    Icons.access_time_rounded,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    '7:30-8:20',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
-              Spacer(),
-              Text(
+              const Spacer(),
+              const Text(
                 'AP Biology   ',
                 style: TextStyle(fontSize: 22, color: Colors.blue),
               ),
-              Spacer(),
-              Text(
-                ' D203',
-                style: TextStyle(fontSize: 18),
+              const Spacer(),
+              Column(
+                children: const [
+                  Icon(
+                    Icons.meeting_room_outlined,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'D203',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ],
@@ -88,10 +131,10 @@ _currentClassInfo() {
 // LUNCH FOR THE CURRENT DAY CONTAINER
 _lunchForTheDay() {
   return Container(
-    margin: EdgeInsets.all(15.0),
-    padding: EdgeInsets.all(10.0),
+    margin: const EdgeInsets.all(15.0),
+    padding: const EdgeInsets.all(10.0),
     decoration: BoxDecoration(
-      color: Color(0xFF333333),
+      color: const Color(0xFF333333),
       borderRadius: BorderRadius.circular(15.0),
     ),
     child: Column(
@@ -101,7 +144,7 @@ _lunchForTheDay() {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            children: [
+            children: const [
               // TITLE
               Text(
                 "Today's Lunch",
@@ -111,17 +154,22 @@ _lunchForTheDay() {
               // TIME
               Text(
                 "11:30-12:00",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: 18,
+                ),
               )
             ],
           ),
         ),
         // LUNCH ITEMS
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             "Pizza, fruit cup, breadsticks, milk",
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
           ),
         ),
       ],
@@ -129,23 +177,48 @@ _lunchForTheDay() {
   );
 }
 
-// TODO LIST FOR THE DAY
+// TO-DO LIST FOR THE DAY
 _todoListForTheDay() {
   return Container(
-    margin: EdgeInsets.all(15.0),
-    padding: EdgeInsets.all(10.0),
+    margin: const EdgeInsets.all(15.0),
+    padding: const EdgeInsets.all(10.0),
     decoration: BoxDecoration(
-      color: Color(0xFF333333),
+      color: const Color(0xFF333333),
       borderRadius: BorderRadius.circular(15.0),
     ),
     child: Column(
       children: [
-        // TITLE
-        Text(
-          "Your To-do List",
-          style: TextStyle(fontSize: 23),
+        Row(
+          children: [
+            // TITLE
+            const Text(
+              "Your To-do List",
+              style: TextStyle(
+                fontSize: 23,
+              ),
+            ),
+            const Spacer(),
+            // ADD MORE BUTTON
+            // button that brings the user to the planner page allowing them to add more
+            TextButton(
+              onPressed: () => {},
+              style: TextButton.styleFrom(primary: Colors.grey),
+              child: Row(
+                children: const [
+                  Text(
+                    "See All ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward_rounded, color: Colors.white)
+                ],
+              ),
+            )
+          ],
         ),
-        // TODO ITEMS
+        // TO-DO LIST ITEMS
         _todoListItem("Makers Club", "3:10-4:20"),
         _todoListItem("Track Meet", "5:00-8:00"),
         _todoListItem("Math Homework", "9:00"),
@@ -154,27 +227,30 @@ _todoListForTheDay() {
   );
 }
 
-// TODO ITEM TILE
+// TO-DO ITEM TILE
 _todoListItem(String title, String time) {
   return ListTile(
-    contentPadding: EdgeInsets.symmetric(
+    contentPadding: const EdgeInsets.symmetric(
       vertical: 0.0,
       horizontal: 8.0,
     ),
     title: Text(
       title,
-      style: TextStyle(fontSize: 18),
+      style: const TextStyle(
+        fontSize: 18,
+        color: Colors.white,
+      ),
     ),
     subtitle: Text(
       time,
-      style: TextStyle(fontSize: 16),
+      style: const TextStyle(fontSize: 16),
     ),
     trailing: IconButton(
       color: Colors.white,
-      icon: Icon(Icons.more_vert_rounded),
+      icon: const Icon(Icons.more_vert_rounded),
       onPressed: () => {},
     ),
-    textColor: Colors.white,
-    tileColor: Color(0xFF333333),
+    textColor: Colors.grey,
+    tileColor: const Color(0xFF333333),
   );
 }

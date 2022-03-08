@@ -50,9 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       // Bottom Bar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -74,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             backgroundColor: Color(0xFF212121),
             currentIndex: _selectedIndex,
             showSelectedLabels: true,
-            onTap: _onItemTapped,
+            onTap: _onNewPageSelected,
             selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.white,
             type: BottomNavigationBarType.shifting,
@@ -118,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   //Bottom Bar functionaity
-  void _onItemTapped(int index) {
+  void _onNewPageSelected(int index) {
     setState(() {
       _selectedIndex = index;
     });
