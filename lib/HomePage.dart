@@ -53,7 +53,7 @@ _topSection() {
 _optionsMenuButton() {
   return IconButton(
     onPressed: () => {},
-    icon: Icon(
+    icon: const Icon(
       Icons.settings_applications_sharp,
       color: Colors.white,
       size: 35,
