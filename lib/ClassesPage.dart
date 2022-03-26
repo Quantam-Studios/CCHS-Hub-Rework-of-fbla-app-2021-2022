@@ -1,22 +1,21 @@
-import 'package:cchs_hub/model/class.dart';
-import 'package:flutter/foundation.dart';
+// General
 import 'package:flutter/material.dart';
 import "package:flutter/services.dart";
+// ignore: file_names
+import 'package:cchs_hub/model/class.dart';
+// Popups
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:hive/hive.dart';
+// Hive
 import 'package:hive_flutter/hive_flutter.dart';
 import 'boxes.dart';
 
+// The classes page
 class ClassesPage extends StatefulWidget {
   @override
   ClassList createState() => ClassList();
 }
 
-// Class Name Controller
-final classEditController = TextEditingController(text: '');
-// Room Controller
-final classRoomEditController = TextEditingController(text: '');
-
+// The State Management of the ClassList Section
 class ClassList extends State<ClassesPage> {
   @override
   Widget build(BuildContext context) => ListView(
@@ -64,29 +63,29 @@ class ClassList extends State<ClassesPage> {
                     builder: (context, box, _) {
                       final newClasses = box.values.toList().cast<Class>();
                       return buildClasses(newClasses);
-                    }
-                    // Class List
-                    // list of all classes and relevant info
-                    // Divider(
-                    //   color: Colors.grey.shade700,
-                    // ),
-                    // _classItem("class", "time", "room", context),
-                    ),
+                    }),
               ],
             ),
           ),
+          // ADD CLASS BUTTON
+          // This Button Adds A New Class
           FloatingActionButton(
-            onPressed: () => {_addClass(context, 0, 0)},
+            // displays the _addClass popup
+            onPressed: _addClass(context, 0, 0),
             tooltip: 'Add Class',
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             backgroundColor: Colors.blue,
           ),
         ],
       );
 }
 
+// BUILD CLASSES
+// Contruction of the class list happens here
 Widget buildClasses(List<Class> allClasses) {
+  // Check if any classes exist
   if (allClasses.isEmpty) {
+    // if not then tell the user
     return const Center(
       child: Text(
         "No Classes Yet!",
@@ -94,8 +93,10 @@ Widget buildClasses(List<Class> allClasses) {
       ),
     );
   } else {
+    // if so then display all classes
     return Column(
       children: [
+        // this dynamically creates a new card (ListTile) for each class
         ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -110,12 +111,17 @@ Widget buildClasses(List<Class> allClasses) {
   }
 }
 
+// BUILD CLASS
+// This returns a class card
 Widget buildClass(BuildContext context, Class classInfo) {
+  // Class Card
+  // this card is what styles the display of classes
   return ListTile(
     contentPadding: const EdgeInsets.symmetric(
       vertical: 0.0,
       horizontal: 8.0,
     ),
+    // Class Name
     title: Text(
       classInfo.name,
       style: const TextStyle(
@@ -123,10 +129,12 @@ Widget buildClass(BuildContext context, Class classInfo) {
         color: Colors.white,
       ),
     ),
+    // Time, Room
     subtitle: Text(
       classInfo.time + "  " + classInfo.room,
       style: const TextStyle(fontSize: 16),
     ),
+    // Edit Class Button
     trailing: IconButton(
       color: Colors.white,
       icon: const Icon(Icons.more_vert_rounded),
@@ -139,35 +147,13 @@ Widget buildClass(BuildContext context, Class classInfo) {
   );
 }
 
-// Class Card
-// this card is what styles the display of classes
-_classItem(String title, String time, String room, BuildContext context) {
-  return ListTile(
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 0.0,
-      horizontal: 8.0,
-    ),
-    title: Text(
-      title,
-      style: const TextStyle(
-        fontSize: 18,
-        color: Colors.white,
-      ),
-    ),
-    subtitle: Text(
-      time + "  " + room,
-      style: const TextStyle(fontSize: 16),
-    ),
-    trailing: IconButton(
-      color: Colors.white,
-      icon: const Icon(Icons.more_vert_rounded),
-      onPressed: () => {},
-    ),
-    textColor: Colors.grey,
-    tileColor: const Color(0xFF333333),
-  );
-}
+// CONTROLLERS FOR TEXTFIELDS
+// Class Name Controller
+final classEditController = TextEditingController(text: '');
+// Room Controller
+final classRoomEditController = TextEditingController(text: '');
 
+// ADD CLASS POPUP
 // This is the pop up for editing classes.
 // function called draws a pop up
 _addClass(context, int index, int semester) {
@@ -227,6 +213,7 @@ _addClass(context, int index, int semester) {
           onPressed: () => {
             // get rid of pop up
             Navigator.pop(context),
+            // save the class to the device
             addClass(classEditController.value.text,
                 classRoomEditController.value.text, "time")
           },
@@ -238,12 +225,18 @@ _addClass(context, int index, int semester) {
       ]).show();
 }
 
+// ADD CLASS (HIVE)
+// this function saves the newly created class to the systems local storage with hive
 Future addClass(String name, String room, String time) async {
+  // Create Class() object
   final newClass = Class()
     ..name = name
     ..room = room
     ..time = "time";
 
+  // Transfer object types to hive readable
+  // Add new class
+  // Save to local storage
   final box = Boxes.getClasses();
   box.add(newClass);
 }

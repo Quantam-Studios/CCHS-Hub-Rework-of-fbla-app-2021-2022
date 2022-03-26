@@ -35,6 +35,7 @@ class SocialPage extends StatelessWidget {
     );
   }
 
+// INSTAGRAM BUTTON
 // widget for the instagram button
   Widget _instagramButton(BuildContext context, String url) {
     int index = 0;
@@ -49,10 +50,10 @@ class SocialPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          leading: GradientIcon(
+          leading: const GradientIcon(
             FontAwesomeIcons.instagram,
             40.0,
-            const LinearGradient(
+            LinearGradient(
               colors: <Color>[
                 Color(0xffF58529),
                 Color(0xffDD2A7B),
@@ -81,6 +82,7 @@ class SocialPage extends StatelessWidget {
     );
   }
 
+// TWITTER BUTTON
 // widget for the twitter button
   Widget _twitterButton(BuildContext context, String url) {
     int index = 1;
@@ -111,6 +113,7 @@ class SocialPage extends StatelessWidget {
               ],
             ),
           ),
+          // Bring the user to the desired link
           onTap: () => _handleURLButtonPress(context, url, index),
         ),
       ),

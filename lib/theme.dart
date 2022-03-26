@@ -1,7 +1,9 @@
+// General
 import 'package:flutter/material.dart';
 
+// Create a ThemeObject() to be called in other scripts (mainly main.dart)
 ThemeData defaultTheme = _buildDefaultTheme();
-
+// Give the object data
 ThemeData _buildDefaultTheme() {
   return _themeData();
 }
