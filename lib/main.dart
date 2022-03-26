@@ -1,14 +1,27 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
+// General
+import 'package:cchs_hub/model/class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// Hive Database
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+// App pages
 import 'HomePage.dart';
 import 'ClassesPage.dart';
 import 'PlannerPage.dart';
 import 'SocialsPage.dart';
+// Theme Info
 import 'theme.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Hive Initialization
+  await Hive.initFlutter();
+  Hive.registerAdapter(ClassAdapter());
+  await Hive.openBox<Class>('classes');
+
+  // run App
   runApp(const MyApp());
 }
 
@@ -131,6 +144,12 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // Hive Closing
+  @override
+  void dispose() {
+    Hive.box('classes').close();
   }
 }
 
