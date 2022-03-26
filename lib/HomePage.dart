@@ -201,7 +201,7 @@ _todoListForTheDay() {
             // ADD MORE BUTTON
             // button that brings the user to the planner page allowing them to add more
             TextButton(
-              onPressed: () => {},
+              onPressed: () => {globalNewPageSelected(1)},
               style: TextButton.styleFrom(primary: Colors.grey),
               child: Row(
                 children: const [
@@ -219,8 +219,17 @@ _todoListForTheDay() {
           ],
         ),
         // TO-DO LIST ITEMS
+        Divider(
+          color: Colors.grey.shade700,
+        ),
         _todoListItem("Makers Club", "3:10-4:20"),
+        Divider(
+          color: Colors.grey.shade700,
+        ),
         _todoListItem("Track Meet", "5:00-8:00"),
+        Divider(
+          color: Colors.grey.shade700,
+        ),
         _todoListItem("Math Homework", "9:00"),
       ],
     ),

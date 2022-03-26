@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'HomePage.dart';
@@ -16,17 +18,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // disable the debug banner
+      debugShowCheckedModeBanner: false,
       title: 'CCHS Hub',
       theme: defaultTheme,
-      home: const MyHomePage(title: 'CCHS Hub'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -37,6 +39,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // Bottom Navigation
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> _pages = <Widget>[
       // HOME PAGE STUFF
       HomePage(),
-      //CLASSES PAGE
-      ClassesPage(),
       // PLANNER
       PlannerPage(),
+      //CLASSES PAGE
+      ClassesPage(),
       // SOCIALS
-      SocialsPage(),
+      SocialPage(),
     ];
 
     return Scaffold(
@@ -114,16 +121,21 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
-        child: _pages.elementAt(_selectedIndex), //New
-      ),
+      body: _pages.elementAt(_selectedIndex),
     );
   }
 
-  //Bottom Bar functionaity
+  //Bottom Bar Functionality
   void _onNewPageSelected(int index) {
+    if (!mounted) return;
     setState(() {
       _selectedIndex = index;
     });
   }
+}
+
+//Global Bottom Bar Functionality
+// This allows for the page to be changed from other scripts.
+void globalNewPageSelected(int index) {
+  _MyHomePageState()._onNewPageSelected(index);
 }
