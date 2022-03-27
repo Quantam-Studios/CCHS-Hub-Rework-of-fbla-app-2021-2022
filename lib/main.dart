@@ -3,7 +3,6 @@ import 'package:cchs_hub/model/class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // Hive Database
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // App pages
 import 'HomePage.dart';

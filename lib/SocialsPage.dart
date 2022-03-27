@@ -130,6 +130,7 @@ class SocialPage extends StatelessWidget {
 // This is for mapping gradients to icons
 // this is only used on the instagram icon for now
 class GradientIcon extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const GradientIcon(
     this.icon,
     this.size,
