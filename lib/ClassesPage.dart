@@ -67,7 +67,10 @@ class ClassList extends State<ClassesPage> {
                     // CLEAR CLASSES BUTTON
                     // button that deletes all classes
                     TextButton(
-                      onPressed: () => {Boxes.getClasses().clear()},
+                      onPressed: () => {
+                        Boxes.getClasses().clear(),
+                        Boxes.getClasses().compact()
+                      },
                       style: TextButton.styleFrom(
                           primary: Colors.redAccent.shade200),
                       child: Row(

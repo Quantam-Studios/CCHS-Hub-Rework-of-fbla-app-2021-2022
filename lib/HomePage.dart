@@ -75,29 +75,44 @@ _optionsMenu() {}
 // CURRENT CLASS INFORMATION CONTAINER
 // this stores the active class index
 int activeClass = 0;
-List<dynamic> newClasses = Boxes.getClasses().values.toList().cast();
+// this is the "global" reference allowing for other functions
+// -to see the active class
+List<dynamic> allClasses = [];
 // Compare times, and update active class if needed
 updateActiveClass() {
-  newClasses = Boxes.getClasses().values.toList().cast();
-  activeClass = 0;
-  int x = 1;
-  while (activeClass < x) {
-    x += 1;
-    int status = activeClassUpdateCheck(checkTimes[activeClass]);
-    if (activeClass < Boxes.getClasses().length) {
-      if (status == 1) {
-        activeClass += 1;
+  allClasses = Boxes.getClasses().values.toList().cast();
+  // Only run logic if classes exist
+  if (Boxes.getClasses().isNotEmpty) {
+    // set initial values
+    activeClass = 0;
+    int x = 1;
+    // determine what class should be active
+    while (activeClass < x) {
+      x += 1;
+      // Compare
+      int status = activeClassUpdateCheck(checkTimes[activeClass]);
+      // What To Do With Compare Result
+      if (activeClass < Boxes.getClasses().length) {
+        // make the active index HIGHER
+        if (status == 1) {
+          activeClass += 1;
+        } else // the active index needs NO CHANGES
+        {
+          print(activeClass.toString() + ' no update needed');
+          break;
+        }
       } else {
-        print(activeClass.toString() + ' no update needed');
+        print('no more classes');
         break;
       }
-    } else {
-      print('no more classes');
-      break;
     }
+  } else {
+    print("VALUES NULL");
+    return;
   }
 }
 
+// CURRENT CLASS
 // this contains, and styles the container showing the current class, time, and room
 _currentClassInfo() {
   return Container(
@@ -124,7 +139,7 @@ _currentClassInfo() {
                       color: Colors.white,
                     ),
                     Text(
-                      '${newClasses[activeClass].time}',
+                      _getActiveClassTime(),
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
@@ -136,7 +151,7 @@ _currentClassInfo() {
               Expanded(
                 child: Center(
                   child: Text(
-                    '${newClasses[activeClass].name}',
+                    _getActiveClassName(),
                     style: const TextStyle(fontSize: 22, color: Colors.blue),
                   ),
                 ),
@@ -149,7 +164,7 @@ _currentClassInfo() {
                       color: Colors.white,
                     ),
                     Text(
-                      '${newClasses[activeClass].room}',
+                      _getActiveClassRoom(),
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
@@ -164,6 +179,38 @@ _currentClassInfo() {
       ),
     ),
   );
+}
+
+// GET ACTIVE CLASS INFO
+// the functions act to ensure the value given is never null
+// returns the active class NAME
+String _getActiveClassName() {
+  // ensures the value is not null
+  if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+    return 'No Classes';
+  } else {
+    return allClasses[activeClass].name;
+  }
+}
+
+// returns the active class TIME
+String _getActiveClassTime() {
+  // ensures the value is not null
+  if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+    return '';
+  } else {
+    return allClasses[activeClass].time;
+  }
+}
+
+// returns the active class ROOM
+String _getActiveClassRoom() {
+  // ensures the value is not null
+  if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+    return '';
+  } else {
+    return allClasses[activeClass].room;
+  }
 }
 
 // LUNCH FOR THE CURRENT DAY CONTAINER
