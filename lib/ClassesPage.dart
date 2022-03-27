@@ -221,6 +221,10 @@ final classRoomAddController = TextEditingController(text: '');
 // This is the pop up for editing classes.
 // function called draws a pop up
 _addClass(context) {
+  // Set Defualt Text TO Blank: ''
+  classAddController.text = '';
+  classRoomAddController.text = '';
+
   // Actual pop up object
   Alert(
       style: const AlertStyle(

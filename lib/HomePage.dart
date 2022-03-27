@@ -84,21 +84,18 @@ updateActiveClass() {
   // Only run logic if classes exist
   activeClass = 0;
   if (Boxes.getClasses().isNotEmpty) {
-    // set initial values
-    int x = 1;
     // determine what class should be active
-    while (activeClass < x) {
-      x += 1;
-      // Compare
-      int status = activeClassUpdateCheck(checkTimes[activeClass]);
-      // What To Do With Compare Result
-      // make the active index HIGHER
-      if (status == 1) {
-        activeClass += 1;
-      } else if (status == -1) {
-        // the activeclass time was too high, and needs to be lowered
-        activeClass -= 1;
-        break;
+    // ensrue that the school day is still happening
+    int timeStat = activeClassUpdateCheck(checkTimes[6]);
+    if (timeStat <= 0) {
+      // if it is determine the active class
+      for (int i = 1; activeClass < i + 1; i++) {
+        int status = activeClassUpdateCheck(checkTimes[activeClass]);
+        if (status == 1 && activeClass != 6) {
+          activeClass += 1;
+        } else {
+          break;
+        }
       }
     }
   } else {
@@ -184,70 +181,89 @@ _currentClassInfo() {
 // the functions act to ensure the value given is never null
 // returns the active class NAME
 String _getActiveClassName() {
-  // ensures the value is not null
-  if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
-    // If there are no classes then say so
-    return 'No Classes';
-  } else {
-    if (Boxes.getClasses().length < activeClass) {
-      // If the active class time doesnt match any classes then tell the user
-      return "No Class Scheduled";
+  int timeStat = activeClassUpdateCheck(checkTimes[6]);
+  if (timeStat <= 0) {
+    // ensures the value is not null
+    if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+      // If there are no classes then say so
+      return 'No Classes';
     } else {
-      // Handling early bird times
-      if (Boxes.getClasses().length < 7) {
-        // no early bird
-        return allClasses[activeClass - 1].name;
+      if (Boxes.getClasses().length < activeClass) {
+        // If the active class time doesnt match any classes then tell the user
+        return "No Class Scheduled";
       } else {
-        // early bird
-        return allClasses[activeClass].name;
+        // Handling early bird times
+        if (Boxes.getClasses().length < 7) {
+          // no early bird
+          return allClasses[activeClass - 1].name;
+        } else {
+          // early bird
+          return allClasses[activeClass].name;
+        }
       }
     }
+  } else {
+    return 'School Is Out';
   }
 }
 
 // returns the active class TIME
 String _getActiveClassTime() {
-  // ensures the value is not null
-  if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
-    // if there are no classes return empty string
-    return '';
-  } else {
-    if (Boxes.getClasses().length < activeClass) {
-      // if the active class time doesnt match any classes return an empty string
-      return '';
+  int timeStat = activeClassUpdateCheck(checkTimes[6]);
+  if (timeStat <= 0) {
+    // ensures the value is not null
+    if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+      // If there are no classes then say so
+      return 'No Classes';
     } else {
-      // Handling early bird times
-      if (Boxes.getClasses().length < 7) {
-        // no early bird
-        return allClasses[activeClass - 1].time;
+      if (Boxes.getClasses().length < activeClass) {
+        // If the active class time doesnt match any classes then tell the user
+        return "No Class Scheduled";
       } else {
-        // early bird
-        return allClasses[activeClass].time;
+        // Handling early bird times
+        if (Boxes.getClasses().length < 7) {
+          // no early bird
+          return allClasses[activeClass - 1].time;
+        } else {
+          // early bird
+          return allClasses[activeClass].time;
+        }
       }
+    }
+  } else {
+    if (Boxes.getClasses().length < 7) {
+      return '3:00(pm)-8:30(am)';
+    } else {
+      return '3:00(pm)-7:30(am)';
     }
   }
 }
 
 // returns the active class ROOM
 String _getActiveClassRoom() {
-  // ensures the value is not null
-  if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
-    // if there are no classes return empty string
-    return '';
-  } else {
-    if (Boxes.getClasses().length < activeClass) {
-      // if the active class time doesnt match any classes return an empty string
-      return '';
+  int timeStat = activeClassUpdateCheck(checkTimes[6]);
+  if (timeStat <= 0) {
+    // ensures the value is not null
+    if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+      // If there are no classes then say so
+      return 'No Classes';
     } else {
-      // Handling early bird times
-      if (Boxes.getClasses().length < 7) {
-        // no early bird
-        return allClasses[activeClass - 1].room;
+      if (Boxes.getClasses().length < activeClass) {
+        // If the active class time doesnt match any classes then tell the user
+        return "No Class Scheduled";
       } else {
-        // early bird
-        return allClasses[activeClass].room;
+        // Handling early bird times
+        if (Boxes.getClasses().length < 7) {
+          // no early bird
+          return allClasses[activeClass - 1].room;
+        } else {
+          // early bird
+          return allClasses[activeClass].room;
+        }
       }
     }
+  } else {
+    return '';
   }
 }
 
