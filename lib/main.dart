@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             BottomNavigationBarItem(
               backgroundColor: Color(0xFF212121),
               icon: Icon(
-                Icons.calendar_today_rounded,
+                Icons.event_note_rounded,
               ),
               label: 'Planner',
             ),

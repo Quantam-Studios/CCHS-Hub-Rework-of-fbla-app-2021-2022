@@ -1,4 +1,5 @@
 // General
+import 'package:cchs_hub/ClassesPage.dart';
 import 'package:flutter/material.dart';
 // Time Management
 import 'time_management.dart';
@@ -62,9 +63,9 @@ _optionsMenuButton() {
   return IconButton(
     onPressed: () => {},
     icon: const Icon(
-      Icons.settings_applications_sharp,
+      Icons.settings,
       color: Colors.white,
-      size: 35,
+      size: 30,
     ),
   );
 }
@@ -90,7 +91,7 @@ updateActiveClass() {
     if (timeStat <= 0) {
       // if it is determine the active class
       for (int i = 1; activeClass < i + 1; i++) {
-        int status = activeClassUpdateCheck(checkTimes[activeClass]);
+        int status = activeClassUpdateCheck(checkTimes[activeClass + offset]);
         if (status == 1 && activeClass != 6) {
           activeClass += 1;
         } else {
@@ -181,6 +182,7 @@ _currentClassInfo() {
 // the functions act to ensure the value given is never null
 // returns the active class NAME
 String _getActiveClassName() {
+  print(activeClass.toString());
   int timeStat = activeClassUpdateCheck(checkTimes[6]);
   if (timeStat <= 0) {
     // ensures the value is not null
@@ -195,10 +197,11 @@ String _getActiveClassName() {
         // Handling early bird times
         if (Boxes.getClasses().length < 7) {
           // no early bird
-          return allClasses[activeClass - 1].name;
+          return allClasses[activeClass].name;
         } else {
           // early bird
-          return allClasses[activeClass].name;
+          print('Offset: ' + offset.toString());
+          return allClasses[activeClass - 1].name;
         }
       }
     }
@@ -218,15 +221,15 @@ String _getActiveClassTime() {
     } else {
       if (Boxes.getClasses().length < activeClass) {
         // If the active class time doesnt match any classes then tell the user
-        return "No Class Scheduled";
+        return "";
       } else {
         // Handling early bird times
         if (Boxes.getClasses().length < 7) {
           // no early bird
-          return allClasses[activeClass - 1].time;
+          return allClasses[activeClass].time;
         } else {
           // early bird
-          return allClasses[activeClass].time;
+          return allClasses[activeClass - 1].time;
         }
       }
     }
@@ -250,15 +253,15 @@ String _getActiveClassRoom() {
     } else {
       if (Boxes.getClasses().length < activeClass) {
         // If the active class time doesnt match any classes then tell the user
-        return "No Class Scheduled";
+        return "";
       } else {
         // Handling early bird times
         if (Boxes.getClasses().length < 7) {
           // no early bird
-          return allClasses[activeClass - 1].room;
+          return allClasses[activeClass].room;
         } else {
           // early bird
-          return allClasses[activeClass].room;
+          return allClasses[activeClass - 1].room;
         }
       }
     }
