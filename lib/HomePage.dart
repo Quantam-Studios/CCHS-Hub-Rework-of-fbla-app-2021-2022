@@ -82,9 +82,9 @@ List<dynamic> allClasses = [];
 updateActiveClass() {
   allClasses = Boxes.getClasses().values.toList().cast();
   // Only run logic if classes exist
+  activeClass = 0;
   if (Boxes.getClasses().isNotEmpty) {
     // set initial values
-    activeClass = 0;
     int x = 1;
     // determine what class should be active
     while (activeClass < x) {
@@ -92,17 +92,12 @@ updateActiveClass() {
       // Compare
       int status = activeClassUpdateCheck(checkTimes[activeClass]);
       // What To Do With Compare Result
-      if (activeClass < Boxes.getClasses().length) {
-        // make the active index HIGHER
-        if (status == 1) {
-          activeClass += 1;
-        } else // the active index needs NO CHANGES
-        {
-          print(activeClass.toString() + ' no update needed');
-          break;
-        }
-      } else {
-        print('no more classes');
+      // make the active index HIGHER
+      if (status == 1) {
+        activeClass += 1;
+      } else if (status == -1) {
+        // the activeclass time was too high, and needs to be lowered
+        activeClass -= 1;
         break;
       }
     }
@@ -152,7 +147,11 @@ _currentClassInfo() {
                 child: Center(
                   child: Text(
                     _getActiveClassName(),
-                    style: const TextStyle(fontSize: 22, color: Colors.blue),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      color: Colors.blue,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -187,9 +186,22 @@ _currentClassInfo() {
 String _getActiveClassName() {
   // ensures the value is not null
   if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+    // If there are no classes then say so
     return 'No Classes';
   } else {
-    return allClasses[activeClass].name;
+    if (Boxes.getClasses().length < activeClass) {
+      // If the active class time doesnt match any classes then tell the user
+      return "No Class Scheduled";
+    } else {
+      // Handling early bird times
+      if (Boxes.getClasses().length < 7) {
+        // no early bird
+        return allClasses[activeClass - 1].name;
+      } else {
+        // early bird
+        return allClasses[activeClass].name;
+      }
+    }
   }
 }
 
@@ -197,9 +209,22 @@ String _getActiveClassName() {
 String _getActiveClassTime() {
   // ensures the value is not null
   if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+    // if there are no classes return empty string
     return '';
   } else {
-    return allClasses[activeClass].time;
+    if (Boxes.getClasses().length < activeClass) {
+      // if the active class time doesnt match any classes return an empty string
+      return '';
+    } else {
+      // Handling early bird times
+      if (Boxes.getClasses().length < 7) {
+        // no early bird
+        return allClasses[activeClass - 1].time;
+      } else {
+        // early bird
+        return allClasses[activeClass].time;
+      }
+    }
   }
 }
 
@@ -207,9 +232,22 @@ String _getActiveClassTime() {
 String _getActiveClassRoom() {
   // ensures the value is not null
   if (Boxes.getClasses().isEmpty && allClasses.isEmpty) {
+    // if there are no classes return empty string
     return '';
   } else {
-    return allClasses[activeClass].room;
+    if (Boxes.getClasses().length < activeClass) {
+      // if the active class time doesnt match any classes return an empty string
+      return '';
+    } else {
+      // Handling early bird times
+      if (Boxes.getClasses().length < 7) {
+        // no early bird
+        return allClasses[activeClass - 1].room;
+      } else {
+        // early bird
+        return allClasses[activeClass].room;
+      }
+    }
   }
 }
 
