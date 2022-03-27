@@ -1,3 +1,7 @@
+// General
+// handles TimeOfDay data type
+import 'package:flutter/material.dart';
+
 // CLASS TIME TEXT
 // this holds all class times as strings
 // this is for displaying of class times
@@ -17,3 +21,49 @@ final List<String> classTimes = [
   // 6th Hour
   '2:05-3:00(pm)',
 ];
+
+// CLASS TIME CHECK VALUES
+// this holds all class times as TimeOfDay values
+final List<TimeOfDay> checkTimes = [
+  // Early Bird
+  const TimeOfDay(hour: 7, minute: 30),
+  // 1st Period
+  const TimeOfDay(hour: 8, minute: 30),
+  // 2nd Period
+  const TimeOfDay(hour: 9, minute: 30),
+  // 3rd Period
+  const TimeOfDay(hour: 10, minute: 30),
+  // 4th Period
+  const TimeOfDay(hour: 12, minute: 5),
+  // 5th Period
+  const TimeOfDay(hour: 13, minute: 5),
+  // 6th Period
+  const TimeOfDay(hour: 14, minute: 5),
+];
+
+// GET CURRENT TIME
+// returns the current time from the device formmated like 00:00 hh/mm
+getCurrentTime() {
+  TimeOfDay dateTime = TimeOfDay.now();
+  print(dateTime.hour.toString() + dateTime.minute.toString());
+  return dateTime.toString();
+}
+
+// ACTIVE CLASS UPDATE CHECK
+// The method for comparing times in TimeOfDay formats returns an int
+// 0 = no difference, -1 = less, 1 = greater
+activeClassUpdateCheck(TimeOfDay other) {
+  return TimeOfDay.now().compareTo(other);
+}
+
+// This is the actual comparison of time values
+// IMPORTANT: Compare extension DO NOT CALL THIS INSTEAD CALL activeClassUpdateCheck()
+extension TimeOfDayExtension on TimeOfDay {
+  int compareTo(TimeOfDay other) {
+    if (hour < other.hour) return -1;
+    if (hour > other.hour) return 1;
+    if (minute < other.minute) return -1;
+    if (minute > other.minute) return 1;
+    return 0;
+  }
+}

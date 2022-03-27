@@ -1,5 +1,11 @@
-// ignore: file_names
+// General
 import 'package:flutter/material.dart';
+// Time Management
+import 'time_management.dart';
+// Hive DataBase
+import 'package:hive_flutter/hive_flutter.dart';
+import 'boxes.dart';
+// TEST (switching between pages outside of main.dart)
 import 'main.dart';
 
 class HomePage extends StatelessWidget {
@@ -67,6 +73,31 @@ _optionsMenuButton() {
 _optionsMenu() {}
 
 // CURRENT CLASS INFORMATION CONTAINER
+// this stores the active class index
+int activeClass = 0;
+List<dynamic> newClasses = Boxes.getClasses().values.toList().cast();
+// Compare times, and update active class if needed
+updateActiveClass() {
+  newClasses = Boxes.getClasses().values.toList().cast();
+  activeClass = 0;
+  int x = 1;
+  while (activeClass < x) {
+    x += 1;
+    int status = activeClassUpdateCheck(checkTimes[activeClass]);
+    if (activeClass < Boxes.getClasses().length) {
+      if (status == 1) {
+        activeClass += 1;
+      } else {
+        print(activeClass.toString() + ' no update needed');
+        break;
+      }
+    } else {
+      print('no more classes');
+      break;
+    }
+  }
+}
+
 // this contains, and styles the container showing the current class, time, and room
 _currentClassInfo() {
   return Container(
@@ -83,45 +114,50 @@ _currentClassInfo() {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Spacer(),
-              Column(
-                children: const [
-                  Icon(
-                    Icons.access_time_rounded,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    '7:30-8:20',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
+              Expanded(
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.access_time_rounded,
+                      color: Colors.white,
                     ),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              const Text(
-                'AP Biology   ',
-                style: TextStyle(fontSize: 22, color: Colors.blue),
-              ),
-              const Spacer(),
-              Column(
-                children: const [
-                  Icon(
-                    Icons.meeting_room_outlined,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    'D203',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
+                    Text(
+                      '${newClasses[activeClass].time}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              const Spacer(),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    '${newClasses[activeClass].name}',
+                    style: const TextStyle(fontSize: 22, color: Colors.blue),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.meeting_room_outlined,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      '${newClasses[activeClass].room}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ],

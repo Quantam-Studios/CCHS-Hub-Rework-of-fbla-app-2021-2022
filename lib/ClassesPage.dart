@@ -5,7 +5,7 @@ import "package:flutter/services.dart";
 import 'package:cchs_hub/model/class.dart';
 // Popups
 import 'package:rflutter_alert/rflutter_alert.dart';
-// Hive
+// Hive DataBase
 import 'package:hive_flutter/hive_flutter.dart';
 import 'boxes.dart';
 // Time Management
@@ -164,6 +164,10 @@ int offset = 1;
 // BUILD CLASS
 // This returns a class card
 Widget buildClass(BuildContext context, Class classInfo, int index) {
+  // Update the time of the class dynamically
+  classInfo.time = classTimes[index + offset];
+  // Save the time to the existing class
+  classInfo.save();
   // Class Card
   // this card is what styles the display of classes
   return Column(
@@ -272,7 +276,7 @@ _addClass(context) {
             Navigator.pop(context),
             // save the class to the device
             addClass(classAddController.value.text,
-                classRoomAddController.value.text, "time")
+                classRoomAddController.value.text)
           },
           child: const Text(
             "Confirm",
@@ -284,12 +288,12 @@ _addClass(context) {
 
 // ADD CLASS (HIVE)
 // this function saves the newly created class to the systems local storage with hive
-Future addClass(String name, String room, String time) async {
+Future addClass(String name, String room) async {
   // Create Class() object
   final newClass = Class()
     ..name = name
     ..room = room
-    ..time = "time";
+    ..time = "";
 
   // Transfer object types to hive readable
   // Add new class
@@ -385,7 +389,7 @@ _editClass(context, Class classInfo) {
             Navigator.pop(context),
             // save the class to the device
             editClass(classInfo, classEditController.text,
-                classRoomEditController.text, "time")
+                classRoomEditController.text)
           },
           child: const Text(
             "Confirm",
@@ -401,11 +405,9 @@ void editClass(
   Class classInfo,
   String name,
   String room,
-  String time,
 ) {
   classInfo.name = name;
   classInfo.room = room;
-  classInfo.time = "time";
 
   // Update values of the existing class
   classInfo.save();

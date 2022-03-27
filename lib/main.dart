@@ -54,6 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    // load active class
+    updateActiveClass();
+    // General Initialization (flutter method)
     super.initState();
   }
 
@@ -101,29 +104,29 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.white,
           type: BottomNavigationBarType.shifting,
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
               backgroundColor: Color(0xFF212121),
               icon: Icon(
                 Icons.house_rounded,
               ),
               label: 'Home',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               backgroundColor: Color(0xFF212121),
               icon: Icon(
                 Icons.calendar_today_rounded,
               ),
               label: 'Planner',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               backgroundColor: Color(0xFF212121),
               icon: Icon(
                 Icons.format_list_bulleted_rounded,
               ),
               label: 'Classes',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               backgroundColor: Color(0xFF212121),
               icon: Icon(
                 Icons.share,
@@ -142,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (!mounted) return;
     setState(() {
       _selectedIndex = index;
+      if (_selectedIndex == 0) updateActiveClass();
     });
   }
 
