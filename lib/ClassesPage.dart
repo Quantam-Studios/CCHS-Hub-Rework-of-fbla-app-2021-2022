@@ -8,6 +8,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 // Hive
 import 'package:hive_flutter/hive_flutter.dart';
 import 'boxes.dart';
+// Time Management
+import 'time_management.dart';
 
 // The classes page
 class ClassesPage extends StatefulWidget {
@@ -124,12 +126,18 @@ Widget buildClasses(List<Class> allClasses) {
     // if not then tell the user
     return const Center(
       child: Text(
-        "No Classes Yet!",
-        style: TextStyle(color: Colors.white),
+        "Press the + to add a class.",
+        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
     );
   } else {
     // if so then display all classes
+    // Update time offset see "TIME OFFSET" seciton for explanation
+    if (Boxes.getClasses().length < 7) {
+      offset = 1;
+    } else {
+      offset = 0;
+    }
     return Column(
       children: [
         // this dynamically creates a new card (ListTile) for each class
@@ -139,7 +147,7 @@ Widget buildClasses(List<Class> allClasses) {
           itemCount: allClasses.length,
           itemBuilder: (BuildContext context, int index) {
             final newClass = allClasses[index];
-            return buildClass(context, newClass);
+            return buildClass(context, newClass, index);
           },
         ),
       ],
@@ -147,9 +155,15 @@ Widget buildClasses(List<Class> allClasses) {
   }
 }
 
+// TIME OFFSET
+// this regulates class time display of with and without early bird
+// if the value is 1 then the class times will start at 1st Hour
+// if the value is 0 then the class times will start at early bird hour
+int offset = 1;
+
 // BUILD CLASS
 // This returns a class card
-Widget buildClass(BuildContext context, Class classInfo) {
+Widget buildClass(BuildContext context, Class classInfo, int index) {
   // Class Card
   // this card is what styles the display of classes
   return Column(
@@ -174,7 +188,7 @@ Widget buildClass(BuildContext context, Class classInfo) {
         ),
         // Time, Room
         subtitle: Text(
-          classInfo.time + "  " + classInfo.room,
+          classTimes[index + offset] + "  " + classInfo.room,
           style: const TextStyle(fontSize: 16),
         ),
         // Edit Class Button

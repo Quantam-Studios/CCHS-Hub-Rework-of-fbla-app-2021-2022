@@ -73,11 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     List<Widget> _pages = <Widget>[
       // HOME PAGE STUFF
-      HomePage(),
+      const HomePage(),
       // PLANNER
       PlannerPage(),
       //CLASSES PAGE
-      ClassesPage(),
+      const ClassesPage(),
       // SOCIALS
       SocialPage(),
     ];
