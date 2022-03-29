@@ -11,8 +11,9 @@ class SocialPage extends StatelessWidget {
       backgroundColor: const Color(0xFF121212),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(5.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

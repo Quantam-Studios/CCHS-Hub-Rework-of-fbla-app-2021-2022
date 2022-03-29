@@ -6,7 +6,7 @@ class WebViewContainer extends StatefulWidget {
   final index;
   WebViewContainer(this.url, this.index);
   @override
-  createState() => _WebViewContainerState(this.url, this.index);
+  createState() => _WebViewContainerState(url, index);
 }
 
 //TODO: Create a cleaner method for this

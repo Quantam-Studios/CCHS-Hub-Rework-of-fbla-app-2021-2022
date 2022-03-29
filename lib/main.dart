@@ -1,5 +1,6 @@
 // General
 import 'package:cchs_hub/model/class.dart';
+import 'package:cchs_hub/model/event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // Hive Database
@@ -17,8 +18,12 @@ Future main() async {
 
   // Hive Initialization
   await Hive.initFlutter();
+  // Classes
   Hive.registerAdapter(ClassAdapter());
   await Hive.openBox<Class>('classes');
+  // Events
+  Hive.registerAdapter(EventAdapter());
+  await Hive.openBox<Event>('events');
 
   // run App
   runApp(const MyApp());
@@ -47,11 +52,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 // MAIN DYNAMIC CLASS OF THE APP
+// Bottom Navigation
+int _selectedIndex = 0;
+
 // this class handles the page switching
 class _MyHomePageState extends State<MyHomePage> {
-  // Bottom Navigation
-  int _selectedIndex = 0;
-
   @override
   void initState() {
     // load active class
@@ -78,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // HOME PAGE STUFF
       const HomePage(),
       // PLANNER
-      PlannerPage(),
+      const PlannerPage(),
       //CLASSES PAGE
       const ClassesPage(),
       // SOCIALS
@@ -153,11 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     Hive.box('classes').close();
+    Hive.box('events').close();
   }
-}
-
-//Global Bottom Bar Functionality
-// This allows for the page to be changed from other scripts.
-void globalNewPageSelected(int index) {
-  _MyHomePageState()._onNewPageSelected(index);
 }

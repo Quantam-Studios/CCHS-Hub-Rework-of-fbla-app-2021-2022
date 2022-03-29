@@ -45,7 +45,6 @@ final List<TimeOfDay> checkTimes = [
 // returns the current time from the device formmated like 00:00 hh/mm
 getCurrentTime() {
   TimeOfDay dateTime = TimeOfDay.now();
-  print(dateTime.hour.toString() + dateTime.minute.toString());
   return dateTime.toString();
 }
 

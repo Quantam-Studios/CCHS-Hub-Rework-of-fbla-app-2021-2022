@@ -76,15 +76,44 @@ class ClassList extends State<ClassesPage> {
                       child: Row(
                         children: const [
                           Text(
-                            "Clear All",
+                            "Clear ",
                             style: TextStyle(
                               color: Colors.redAccent,
-                              fontSize: 16,
+                              fontSize: 17,
                             ),
                           ),
+                          Icon(Icons.close, color: Colors.redAccent)
                         ],
                       ),
-                    )
+                    ),
+                    // ADD MORE BUTTON
+                    // button that brings the user to the planner page allowing them to add more
+                    TextButton(
+                      onPressed: () => {
+                        // ensure that no more than 7 classes can be added.
+                        if (Boxes.getClasses().length < 7)
+                          // if < 7 then allow for a new class to be made
+                          {_addClass(context)}
+                        else
+                          // if there are already 7 classes then tell the user
+                          {
+                            _tooManyClasses(context),
+                          }
+                      },
+                      style: TextButton.styleFrom(primary: Colors.blueAccent),
+                      child: Row(
+                        children: const [
+                          Text(
+                            "Add ",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 17,
+                            ),
+                          ),
+                          Icon(Icons.add, color: Colors.blue)
+                        ],
+                      ),
+                    ),
                   ],
                 ),
                 ValueListenableBuilder<Box<Class>>(
@@ -95,27 +124,6 @@ class ClassList extends State<ClassesPage> {
                     }),
               ],
             ),
-          ),
-          // ADD CLASS BUTTON
-          // This Button Adds A New Class
-          FloatingActionButton(
-            // displays the _addClass popup
-            // IMPORTANT: "() => {}" is needed to ensure the popup works
-            // -as intended and can't open unexpectedly
-            onPressed: () => {
-              // ensure that no more than 7 classes can be added.
-              if (Boxes.getClasses().length < 7)
-                // if < 7 then allow for a new class to be made
-                {_addClass(context)}
-              else
-                // if there are already 7 classes then tell the user
-                {
-                  _tooManyClasses(context),
-                }
-            },
-            tooltip: 'Add Class',
-            child: const Icon(Icons.add),
-            backgroundColor: Colors.blue,
           ),
         ],
       );
@@ -146,6 +154,7 @@ Widget buildClasses(List<Class> allClasses) {
         // this dynamically creates a new card (ListTile) for each class
         ListView.builder(
           scrollDirection: Axis.vertical,
+          padding: EdgeInsets.all(0.0),
           shrinkWrap: true,
           itemCount: allClasses.length,
           itemBuilder: (BuildContext context, int index) {
@@ -218,7 +227,6 @@ final classAddController = TextEditingController(text: '');
 final classRoomAddController = TextEditingController(text: '');
 
 // ADD CLASS POPUP
-// This is the pop up for editing classes.
 // function called draws a pop up
 _addClass(context) {
   // Set Defualt Text TO Blank: ''
@@ -313,15 +321,16 @@ Future addClass(String name, String room) async {
 // this snackbar will be displayed when a user tries to add another class
 // -when the maximum amount of classes (7) has been reached
 _tooManyClasses(BuildContext context) {
-  return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    content: Text(
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: const Text(
       'You can only have 7 classes in a day!',
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 15.0),
+      style: TextStyle(fontSize: 16.0),
     ),
     backgroundColor: Colors.redAccent,
     behavior: SnackBarBehavior.floating,
-    margin: EdgeInsets.only(left: 45, right: 45, bottom: 15, top: 15),
+    margin: const EdgeInsets.only(left: 45, right: 45, bottom: 15, top: 15),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(23.0)),
   ));
 }
 

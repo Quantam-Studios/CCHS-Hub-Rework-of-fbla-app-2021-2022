@@ -41,6 +41,8 @@ dependencies:
   font_awesome_flutter:
   # Sizer for making certain containers and widgets repsonsive
   sizer: ^2.0.15
+  # table calendar for making calendars
+  table_calendar: ^3.0.3
   # hive database
   #this stuff is what allows for saving user info locally
   hive: ^2.0.3
