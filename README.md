@@ -17,5 +17,21 @@ There are lots of changes in this version of the app when compared to [the app s
 - New Layout.
 - Consistently Themed UI.
 - Responsiveness (This app can recognize the screen size it;s in and scale widgets accordingly).
+## Copy Right Materials
+Twitter. Larry. 2012. About Twitter. Web. 04 Jan 2022. Facebook. Instagram Icon. 2016. Instagram | Brand Portal - Facebook. Web. 01 Jan 2022.
+## Packages
+To see details on these packages see the [pubspec.yaml](https://github.com/Quantam-Studios/CCHS-Hub-Rework-of-fbla-app-2021-2022/blob/master/pubspec.yaml) file.
+  - rflutter_alert: ^2.0.4
+  - cupertino_icons: ^1.0.2
+  - webview_flutter:
+  - font_awesome_flutter:
+  - sizer: ^2.0.15
+  - table_calendar: ^3.0.3
+  - hive: ^2.0.3
+  - hive_flutter: ^1.0.0
+  - flutter_launcher_icons: "^0.9.2"
+  - build_runner: ^1.12.2
+  - hive_generator: ^1.0.1
+
 ___
 This app was made for the FBLA 2021-2022 State Conference.
