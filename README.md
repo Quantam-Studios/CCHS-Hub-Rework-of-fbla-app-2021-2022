@@ -17,6 +17,8 @@ There are lots of changes in this version of the app when compared to [the app s
 - New Layout.
 - Consistently Themed UI.
 - Responsiveness (This app can recognize the screen size it;s in and scale widgets accordingly).
+## How To Use
+This app features intuitive bottom navigation to switch between the major sections of the app: Home, Planner, Classes, and Socials. Creating new events (in the planner page) or classes (in the classes page) is done with identical buttons. Consistency is a common trend in this app. Meaning a safe assumption is that buttons that look the same have the same functions. However in case you are confused holding your finger down on most buttons will reveal a label which will tell you what it does. 
 ## Copy Right Materials
 Twitter. Larry. 2012. About Twitter. Web. 04 Jan 2022. Facebook. Instagram Icon. 2016. Instagram | Brand Portal - Facebook. Web. 01 Jan 2022.
 ## Packages
@@ -32,6 +34,7 @@ To see details on these packages see the [pubspec.yaml](https://github.com/Quant
   - flutter_launcher_icons: "^0.9.2"
   - build_runner: ^1.12.2
   - hive_generator: ^1.0.1
-
+## Code
+To see the code I wrote for this app see the [lib folder](https://github.com/Quantam-Studios/CCHS-Hub-Rework-of-fbla-app-2021-2022/tree/master/lib).
 ___
 This app was made for the FBLA 2021-2022 State Conference.
