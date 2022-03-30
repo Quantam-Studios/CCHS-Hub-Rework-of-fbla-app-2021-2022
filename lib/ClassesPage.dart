@@ -154,7 +154,7 @@ Widget buildClasses(List<Class> allClasses) {
         // this dynamically creates a new card (ListTile) for each class
         ListView.builder(
           scrollDirection: Axis.vertical,
-          padding: EdgeInsets.all(0.0),
+          padding: const EdgeInsets.all(0.0),
           shrinkWrap: true,
           itemCount: allClasses.length,
           itemBuilder: (BuildContext context, int index) {

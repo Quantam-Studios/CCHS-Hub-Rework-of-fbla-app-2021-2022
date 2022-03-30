@@ -9,19 +9,18 @@ class WebViewContainer extends StatefulWidget {
   createState() => _WebViewContainerState(url, index);
 }
 
-//TODO: Create a cleaner method for this
 final socialStrings = ['CCHS Instagram', 'CCHS Twitter'];
 
 class _WebViewContainerState extends State<WebViewContainer> {
-  var _url;
-  var _index;
+  final _url;
+  final _index;
   final _key = UniqueKey();
   _WebViewContainerState(this._url, int this._index);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF212121),
+          backgroundColor: const Color(0xFF212121),
           title: Text(socialStrings[_index]),
         ),
         body: Column(

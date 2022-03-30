@@ -533,31 +533,3 @@ Widget buildEvent(BuildContext context, Event eventInfo, int index) {
 void deleteEvent(Event eventInfo) {
   eventInfo.delete();
 }
-
-// TO-DO ITEM TILE
-_todoListItem(String title, String time) {
-  return ListTile(
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 0.0,
-      horizontal: 8.0,
-    ),
-    title: Text(
-      title,
-      style: const TextStyle(
-        fontSize: 18,
-        color: Colors.white,
-      ),
-    ),
-    subtitle: Text(
-      time,
-      style: const TextStyle(fontSize: 16),
-    ),
-    trailing: IconButton(
-      color: Colors.white,
-      icon: const Icon(Icons.more_vert_rounded),
-      onPressed: () => {},
-    ),
-    textColor: Colors.grey,
-    tileColor: const Color(0xFF333333),
-  );
-}

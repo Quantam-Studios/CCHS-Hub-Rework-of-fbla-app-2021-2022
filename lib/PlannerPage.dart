@@ -1,5 +1,4 @@
 // General
-import 'package:cchs_hub/HomePage.dart';
 import 'package:flutter/material.dart';
 import "package:flutter/services.dart";
 // Calendar
@@ -234,7 +233,7 @@ Widget buildEvents(List<Event> allEvents) {
       children: [
         // this dynamically creates a new card (ListTile) for each event
         ListView.builder(
-          padding: EdgeInsets.all(0.0),
+          padding: const EdgeInsets.all(0.0),
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           itemCount: allEvents.length,
